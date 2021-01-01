@@ -1,20 +1,25 @@
 import React from 'react';
-import { Container, Typography } from '@material-ui/core';
-import styled from 'styled-components';
-
-const MainContainer = styled(Container)`
-  margin-top: 1rem;
-  margin-bottom: 1rem;
-`;
+import { Box, Container } from '@material-ui/core';
+import { ThemeProvider } from '@material-ui/core/styles';
+import { Route, Switch } from 'react-router-dom';
+import { theme } from './utils/globalTheme';
+import MainNavigation from './components/MainNavigation';
+import ErrorPage from './pages/ErrorPage';
+import LandingPage from './pages/LandingPage';
+import LoginPage from './pages/LoginPage';
 
 function App() {
   return (
-    <MainContainer maxWidth="xl">
-      <Typography variant="h3">반갑다 세상</Typography>
-      <Typography variant="body1" paragraph>
-        시작한다 개발
-      </Typography>
-    </MainContainer>
+    <ThemeProvider theme={theme}>
+      <MainNavigation />
+      <Box component={Container} maxWidth="xl" my={4}>
+        <Switch>
+          <Route path="/" exact={true} component={LandingPage} />
+          <Route path="/login" component={LoginPage} />
+          <Route component={ErrorPage} />
+        </Switch>
+      </Box>
+    </ThemeProvider>
   );
 }
 
