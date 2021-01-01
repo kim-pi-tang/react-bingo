@@ -7,4 +7,6 @@
         "source.fixAll.eslint": true
     },
     "eslint.alwaysShowStatus": true,
+    "files.eol": "\n",
+    "editor.tabSize": 2,
 }
