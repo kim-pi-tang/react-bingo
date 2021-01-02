@@ -1,21 +1,11 @@
-import React, { useEffect, useReducer } from 'react';
+import React, { useEffect } from 'react';
 import axios from 'axios';
-import { Typography } from '@material-ui/core';
+import { useAsync } from 'react-async';
+import { Button, Typography } from '@material-ui/core';
 import { serverBaseUrl } from '../utils/config';
 
 function LandingPage(props) {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const { loading, data, error } = state;
-
-  const fetchBingos = async () => {
-    dispatch({ type: 'LOADING' });
-    try {
-      const response = await axios.get(`${serverBaseUrl}/bingos`);
-      dispatch({ type: 'SUCCESS', data: response.data });
-    } catch (e) {
-      dispatch({ type: 'ERROR', error: e });
-    }
-  };
+  const { data, error, isLoading, reload } = useAsync({ promiseFn: fetchBingos });
 
   useEffect(() => {
     fetchBingos();
@@ -26,53 +16,27 @@ function LandingPage(props) {
   return (
     <>
       <Typography variant="h3">반갑다 세상</Typography>
-      <Typography variant="body1" paragraph>
-        시작한다 개발
-      </Typography>
-      <Typography variant="body2">
-        {loading && '로딩중 ...'}
+      <Typography variant="body1">시작한다 개발</Typography>
+      <Typography variant="subtitle1">
+        {isLoading && <div>로딩중 ...</div>}
         {data && dataList}
-        {error && '오류났음 ㅜ'}
+        {error && !isLoading && (
+          <>
+            <div>오류났음 ㅜ</div>
+            <Button variant="contained" color="primary" onClick={reload}>
+              재시도
+            </Button>
+          </>
+        )}
       </Typography>
     </>
   );
 }
 
-// API 로딩 상태 관리용 리듀서.
-function reducer(state, action) {
-  switch (action.type) {
-    case 'LOADING':
-      console.log('LOADING ...');
-      return {
-        loading: true,
-        data: null,
-        error: null,
-      };
-    case 'SUCCESS':
-      console.log(action.data);
-      return {
-        loading: false,
-        data: action.data,
-        error: null,
-      };
-    case 'ERROR':
-      console.log(action.error);
-      return {
-        loading: false,
-        data: null,
-        error: action.error,
-      };
-    default:
-      throw new Error(`Unhandled action type: ${action.type}`);
-  }
+async function fetchBingos() {
+  const response = await axios.get(`${serverBaseUrl}/bingos`);
+  return response.data;
 }
-
-// 로딩 상태 초기값.
-const initialState = {
-  loading: false,
-  data: null,
-  error: null,
-};
 
 // 그냥 테스트용 컴포넌트임, 웬만하면 components에 컴포넌트 작성 후 import해서 사용.
 function BingoInfo({ bingo }) {
