@@ -2,8 +2,19 @@
     "users": [
         {
             "id": 1,
-            "username": "mskwon",
-            "password": 1234
+            "username": "mskwon1"
+        },
+        {
+            "id": 2,
+            "username": "lekakid"
+        },
+        {
+            "id": 3,
+            "username": "jeonjongsuck"
+        },
+        {
+            "id": 4,
+            "username": "cling"
         }
     ],
     "bingos": [
@@ -11,127 +22,665 @@
             "id": 1,
             "owner_id": 1,
             "title": "반오십 빙고판",
+            "description": "반오십이니?",
             "thumbnail_src": "https://scontent-ssn1-1.xx.fbcdn.net/v/t1.0-9/50996730_2014633111919327_8479180979007651840_o.png?_nc_cat=108&ccb=2&_nc_sid=730e14&_nc_ohc=-MRgbZ2whYMAX_QluyL&_nc_ht=scontent-ssn1-1.xx&oh=2c4055dcdfcbe027fada4913df1cb23d&oe=60127E6A",
             "size": 5,
-            "type": "text-only",
-            "views": 23,
+            "plays": 23,
             "board": [
-                [
-                    {
-                        "title": "주변에 결혼한 여자친구가 생김"
-                    },
-                    {
-                        "title": "신입생이 2000년생이란 사실에 충격먹음"
-                    },
-                    {
-                        "title": "외모보단 성격을 보게 됨"
-                    },
-                    {
-                        "title": "별 감흥 없음"
-                    },
-                    {
-                        "title": "인간관계에 연연하지 않음"
-                    }
-                ],
-                [
-                    {
-                        "title": "취업에 대한 걱정이 커짐"
-                    },
-                    {
-                        "title": "주량이 줄어듦"
-                    },
-                    {
-                        "title": "인생 권태기가 옴"
-                    },
-                    {
-                        "title": "체력이 급격히 떨어짐"
-                    },
-                    {
-                        "title": "신조어 못 알아들음"
-                    }
-                ],
-                [
-                    {
-                        "title": "잔병치레가 많아짐"
-                    },
-                    {
-                        "title": "건강식을 찾게 됨"
-                    },
-                    {
-                        "title": "밤샘이 힘듦"
-                    },
-                    {
-                        "title": "스무살로 돌아가고 싶음"
-                    },
-                    {
-                        "title": "민증검사하면 기분 좋음"
-                    }
-                ],
-                [
-                    {
-                        "title": "학교생활에 흥미가 없어짐"
-                    },
-                    {
-                        "title": "동생들이 늙은이라 놀림"
-                    },
-                    {
-                        "title": "이모, 삼촌 소리 한번 이상 들어봄"
-                    },
-                    {
-                        "title": "돈 씀씀이가 커짐"
-                    },
-                    {
-                        "title": "구두보다 운동화가 편함"
-                    }
-                ],
-                [
-                    {
-                        "title": "학교에 아는사람이 없음"
-                    },
-                    {
-                        "title": "팀플하면 무조건 조장됨"
-                    },
-                    {
-                        "title": "집에 있는 게 더 좋아짐"
-                    },
-                    {
-                        "title": "건망증이 심해짐"
-                    },
-                    {
-                        "title": "용돈 받기가 눈치 보임"
-                    }
-                ]
-            ]
-        }
-    ],
-    "bingo-results": [
-        {
-            "id": 1,
-            "owner_id": 1,
-            "bingo_id": 1,
-            "checked_cells":[
                 {
-                    "x": 0,
-                    "y": 0
+                    "title": "주변에 결혼한 여자친구가 생김",
+                    "type": "text"
                 },
                 {
-                    "x": 0,
-                    "y": 1
+                    "title": "신입생이 2000년생이란 사실에 충격먹음",
+                    "type": "text"
                 },
                 {
-                    "x": 0,
-                    "y": 2
+                    "title": "외모보단 성격을 보게 됨",
+                    "type": "text"
                 },
                 {
-                    "x": 0,
-                    "y": 3
+                    "title": "별 감흥 없음",
+                    "type": "text"
                 },
                 {
-                    "x": 0,
-                    "y": 4
+                    "title": "인간관계에 연연하지 않음",
+                    "type": "text"
+                },
+                {
+                    "title": "취업에 대한 걱정이 커짐",
+                    "type": "text"
+                },
+                {
+                    "title": "주량이 줄어듦",
+                    "type": "text"
+                },
+                {
+                    "title": "인생 권태기가 옴",
+                    "type": "text"
+                },
+                {
+                    "title": "체력이 급격히 떨어짐",
+                    "type": "text"
+                },
+                {
+                    "title": "신조어 못 알아들음",
+                    "type": "text"
+                },
+                {
+                    "title": "잔병치레가 많아짐",
+                    "type": "text"
+                },
+                {
+                    "title": "건강식을 찾게 됨",
+                    "type": "text"
+                },
+                {
+                    "title": "밤샘이 힘듦",
+                    "type": "text"
+                },
+                {
+                    "title": "스무살로 돌아가고 싶음",
+                    "type": "text"
+                },
+                {
+                    "title": "민증검사하면 기분 좋음",
+                    "type": "text"
+                },
+                {
+                    "title": "학교생활에 흥미가 없어짐",
+                    "type": "text"
+                },
+                {
+                    "title": "동생들이 늙은이라 놀림",
+                    "type": "text"
+                },
+                {
+                    "title": "이모, 삼촌 소리 한번 이상 들어봄",
+                    "type": "text"
+                },
+                {
+                    "title": "돈 씀씀이가 커짐",
+                    "type": "text"
+                },
+                {
+                    "title": "구두보다 운동화가 편함",
+                    "type": "text"
+                },
+                {
+                    "title": "학교에 아는사람이 없음",
+                    "type": "text"
+                },
+                {
+                    "title": "팀플하면 무조건 조장됨",
+                    "type": "text"
+                },
+                {
+                    "title": "집에 있는 게 더 좋아짐",
+                    "type": "text"
+                },
+                {
+                    "title": "건망증이 심해짐",
+                    "type": "text"
+                },
+                {
+                    "title": "용돈 받기가 눈치 보임",
+                    "type": "text"
                 }
             ],
-            "bingo_lines": 1
+            "tags": [
+                "나이",
+                "텍스트"
+            ],
+            "result": {
+                "cell_selection": [
+                    12,16,15,6,12,12,12,11,2,6,8,16,14,7,4,0,19,16,0,19,22,5,3,7,9
+                ],
+                "bingo_lines": {
+                    "0": 4,
+                    "1": 10,
+                    "2": 5,
+                    "3": 3,
+                    "4": 1,
+                    "5+": 0
+                }
+            }
+        },
+        {
+            "id": 2,
+            "owner_id": 1,
+            "title": "애착유형 회피형 빙고",
+            "description": "재미로하는 애착유형 회피형 빙고",
+            "thumbnail_src": "https://mblogthumb-phinf.pstatic.net/MjAyMDA1MjFfNjUg/MDAxNTkwMDI5MzcyNDQz.7JcNYp3Me1oSXUCD9KrM3Bt37MajG-Hg47p5DJV8rvog.VCebfNghJDbSRvFWw9htQFAsYVJ7AJKbZz9KmFSEzwcg.JPEG.sw900920/1589961172134.jpg?type=w800",
+            "size": 4,
+            "plays": 6,
+            "board": [
+                {
+                    "title": "6개월 이상 연애해본 적이 없다",
+                    "type": "text"
+                },
+                {
+                    "title": "카톡 답장이 의무적으로 느껴질 때가 있다",
+                    "type": "text"
+                },
+                {
+                    "title": "애인이 나의 핸드폰을 보는 것이 싫다",
+                    "type": "text"
+                },
+                {
+                    "title": "주변의 다른 사람들에게 무신경한 편이다",
+                    "type": "text"
+                },
+                {
+                    "title": "상대방이 내가 원하는 것보다 자주 보자고 하면 지친다",
+                    "type": "text"
+                },
+                {
+                    "title": "혼자만의 공간이 나에겐 꼭 필요하다",
+                    "type": "text"
+                },
+                {
+                    "title": "\"사랑해\"라는 말을 잘 하지 않는다",
+                    "type": "text"
+                },
+                {
+                    "title": "공감보다 현실적 조언을 해주는 사람이 더 좋다",
+                    "type": "text"
+                },
+                {
+                    "title": "사랑이 뭔지 잘 모르겠다",
+                    "type": "text"
+                },
+                {
+                    "title": "나를 너무 의지하려는 사람은 부담스럽다",
+                    "type": "text"
+                },
+                {
+                    "title": "힘든 일이 생겨도 굳이 털어놓지 않는다",
+                    "type": "text"
+                },
+                {
+                    "title": "SNS에 커플 사진을 올리는 것은 부담스럽다",
+                    "type": "text"
+                },
+                {
+                    "title": "관심 없는 대화주제에는 끼지 않는다",
+                    "type": "text"
+                },
+                {
+                    "title": "결혼은 나와 거리가 먼 일처럼 느껴진다",
+                    "type": "text"
+                },
+                {
+                    "title": "정을 잘 안준다는 소리를 들은 적 있다",
+                    "type": "text"
+                },
+                {
+                    "title": "삐진 애인을 어떻게 달래야 할지 모르겠다",
+                    "type": "text"
+                }
+            ],
+            "tags": [
+                "애착유형",
+                "텍스트"
+            ],
+            "result": {
+                "cell_selection": [
+                    5,1,1,1,0,4,2,4,1,0,5,0,2,3,3,4
+                ],
+                "bingo_lines": {
+                    "0": 1,
+                    "1": 1,
+                    "2": 0,
+                    "3": 0,
+                    "4+": 4
+                }
+            }
+        },
+        {
+            "id": 3,
+            "owner_id": 2,
+            "title": "음주 빙고",
+            "description": "음주 빙고로 알아보는 나의 음주 상태",
+            "thumbnail_src": "http://www.startuptoday.co.kr//news/photo/202005/41911_22910_511.jpg",
+            "size": 4,
+            "plays": 108,
+            "board": [
+                {
+                    "title": "주로 일주일에 2~3회 이상 음주한다",
+                    "type": "text"
+                },
+                {
+                    "title": "주량보다 더 마신적이 많다",
+                    "type": "text"
+                },
+                {
+                    "title": "술 마시고 필름 끊겨본 기억이 있다",
+                    "type": "text"
+                },
+                {
+                    "title": "술을 안 마시면 잠이 오지 않는다",
+                    "type": "text"
+                },
+                {
+                    "title": "분위기를 즐기는 것 보다 술이 좋다",
+                    "type": "text"
+                },
+                {
+                    "title": "반주를 즐긴다",
+                    "type": "text"
+                },
+                {
+                    "title": "잔에 술을 가득따라 마시는 편이다",
+                    "type": "text"
+                },
+                {
+                    "title": "술 때문에 해야 할 일을 못한적 있다",
+                    "type": "text"
+                },
+                {
+                    "title": "몸을 못 가눌 정도로 마신 적 있다",
+                    "type": "text"
+                },
+                {
+                    "title": "만취한 모습을 찍힌 적 있다",
+                    "type": "text"
+                },
+                {
+                    "title": "숙취해소제를 복용한 적이 있다",
+                    "type": "text"
+                },
+                {
+                    "title": "술병 난 경험이 있다",
+                    "type": "text"
+                },
+                {
+                    "title": "다음날 아침까지 술마신적 있다",
+                    "type": "text"
+                },
+                {
+                    "title": "술 때문에 출근/출결에 영향을 준 적 있다",
+                    "type": "text"
+                },
+                {
+                    "title": "술 마시고 소지품을 분실한 적 있다",
+                    "type": "text"
+                },
+                {
+                    "title": "술로 인해 생긴 창피한 경험이 있다",
+                    "type": "text"
+                }
+            ],
+            "tags": [
+                "술",
+                "텍스트"
+            ],
+            "result": {
+                "cell_selection": [
+                    11,70,74,77,14,46,54,36,72,44,86,16,18,51,2,60
+                ],
+                "bingo_lines": {
+                    "0": 20,
+                    "1": 23,
+                    "2": 40,
+                    "3": 15,
+                    "4+": 10
+                }
+            }
+        },
+        {
+            "id": 4,
+            "owner_id": 3,
+            "title": "그리핀도르 빙고",
+            "description": "나는 그리핀도르일까?",
+            "thumbnail_src": "https://ww.namu.la/s/3b3023ee1e4f7491483bb5be0b4fcc187a948eac98a7a6a0417e243799b0de5b941b348cd5cba4ccd797da851bb79575bdc3e2f4a02e5772c4b1e739b97055c83495e848e5b67b2ab127faa26e705614c2ab745306f7b04d116dc240ccddc52df2cbef8feb0d44c4d6d07b4164e37b00",
+            "size": 5,
+            "plays": 53,
+            "board": [
+                {
+                    "title": "자발적 로드 트립",
+                    "type": "text"
+                },
+                {
+                    "title": "알코올",
+                    "type": "text"
+                },
+                {
+                    "title": "입술깨물기",
+                    "type": "text"
+                },
+                {
+                    "title": "수업시간에 친구랑 떠들기",
+                    "type": "text"
+                },
+                {
+                    "title": "여름이 제일 좋다",
+                    "type": "text"
+                },
+                {
+                    "title": "패배를 인정하지 못함",
+                    "type": "text"
+                },
+                {
+                    "title": "아드레날린 중독",
+                    "type": "text"
+                },
+                {
+                    "title": "친구랑 서로 디스하면서 논다",
+                    "type": "text"
+                },
+                {
+                    "title": "무표정 유지 못함",
+                    "type": "text"
+                },
+                {
+                    "title": "숙제 안함",
+                    "type": "text"
+                },
+                {
+                    "title": "테이블 위에 앉음",
+                    "type": "text"
+                },
+                {
+                    "title": "시끄러운 음악",
+                    "type": "text"
+                },
+                {
+                    "title": "모든걸 미룸",
+                    "type": "text"
+                },
+                {
+                    "title": "수위 높은 농담들",
+                    "type": "text"
+                },
+                {
+                    "title": "개성있는 화장",
+                    "type": "text"
+                },
+                {
+                    "title": "활동적이다",
+                    "type": "text"
+                },
+                {
+                    "title": "말싸움에서 항상 이긴다",
+                    "type": "text"
+                },
+                {
+                    "title": "염색 여러번 해봄",
+                    "type": "text"
+                },
+                {
+                    "title": "욕 많이 씀",
+                    "type": "text"
+                },
+                {
+                    "title": "우정이 제일 중요하다",
+                    "type": "text"
+                },
+                {
+                    "title": "천둥번개는 너무 멋져!",
+                    "type": "text"
+                },
+                {
+                    "title": "불장난 한다(진짜 불장난)",
+                    "type": "text"
+                },
+                {
+                    "title": "절대 지루하지 않다",
+                    "type": "text"
+                },
+                {
+                    "title": "빨강이 제일 좋다",
+                    "type": "text"
+                },
+                {
+                    "title": "아직도 나무 위를 오른다",
+                    "type": "text"
+                }
+            ],
+            "tags": [
+                "해리포터",
+                "텍스트"
+            ],
+            "result": {
+                "cell_selection": [
+                    41,40,26,28,21,2,13,34,10,18,42,37,28,16,0,44,24,8,44,35,6,38,21,17,21
+                ],
+                "bingo_lines": {
+                    "0": 2,
+                    "1": 13,
+                    "2": 30,
+                    "3": 5,
+                    "4": 2,
+                    "5+": 1
+                }
+            }
+        },
+        {
+            "id": 5,
+            "owner_id": 4,
+            "title": "2020년 개봉영화 빙고",
+            "description": "2020년, 얼마나 많은 영화를 보셨나요?",
+            "thumbnail_src": "http://img.vogue.co.kr/vogue/2016/03/style_56d7c79069e99.png",
+            "size": 7,
+            "plays": 42,
+            "board": [
+                {
+                    "title": "혼: 공포의 시작",
+                    "type": "text"
+                },
+                {
+                    "title": "호텔 레이크",
+                    "type": "text"
+                },
+                {
+                    "title": "남산의 부장들",
+                    "type": "text"
+                },
+                {
+                    "title": "클로젯",
+                    "type": "text"
+                },
+                {
+                    "title": "프랑스 여자",
+                    "type": "text"
+                },
+                {
+                    "title": "뮬란",
+                    "type": "text"
+                },
+                {
+                    "title": "결백",
+                    "type": "text"
+                },
+                {
+                    "title": "야구소녀",
+                    "type": "text"
+                },
+                {
+                    "title": "살아있다",
+                    "type": "text"
+                },
+                {
+                    "title": "찬실이는 복도 많지",
+                    "type": "text"
+                },
+                {
+                    "title": "사라진 시간",
+                    "type": "text"
+                },
+                {
+                    "title": "침입자",
+                    "type": "text"
+                },
+                {
+                    "title": "서치아웃",
+                    "type": "text"
+                },
+                {
+                    "title": "지푸라기라도 잡고 싶은 짐승들",
+                    "type": "text"
+                },
+                {
+                    "title": "해치지 않아",
+                    "type": "text"
+                },
+                {
+                    "title": "정직한 후보",
+                    "type": "text"
+                },
+                {
+                    "title": "미스터 주: 사라진 VIP",
+                    "type": "text"
+                },
+                {
+                    "title": "소리꾼",
+                    "type": "text"
+                },
+                {
+                    "title": "히트맨",
+                    "type": "text"
+                },
+                {
+                    "title": "반도",
+                    "type": "text"
+                },
+                {
+                    "title": "강철비 2: 정상회담",
+                    "type": "text"
+                },
+                {
+                    "title": "다만 악에서 구하소서",
+                    "type": "text"
+                },
+                {
+                    "title": "69세",
+                    "type": "text"
+                },
+                {
+                    "title": "오! 문희",
+                    "type": "text"
+                },
+                {
+                    "title": "기기괴괴 성형수",
+                    "type": "text"
+                },
+                {
+                    "title": "검객",
+                    "type": "text"
+                },
+                {
+                    "title": "디바",
+                    "type": "text"
+                },
+                {
+                    "title": "담보",
+                    "type": "text"
+                },
+                {
+                    "title": "국제수사",
+                    "type": "text"
+                },
+                {
+                    "title": "소리도 없이",
+                    "type": "text"
+                },
+                {
+                    "title": "런",
+                    "type": "text"
+                },
+                {
+                    "title": "삼진그룹 영어토익반",
+                    "type": "text"
+                },
+                {
+                    "title": "종이꽃",
+                    "type": "text"
+                },
+                {
+                    "title": "걸후드",
+                    "type": "text"
+                },
+                {
+                    "title": "도굴",
+                    "type": "text"
+                },
+                {
+                    "title": "앙상블",
+                    "type": "text"
+                },
+                {
+                    "title": "내가 죽던 날",
+                    "type": "text"
+                },
+                {
+                    "title": "애비규환",
+                    "type": "text"
+                },
+                {
+                    "title": "요가학원: 죽음의 쿤달리니",
+                    "type": "text"
+                },
+                {
+                    "title": "이웃사촌",
+                    "type": "text"
+                },
+                {
+                    "title": "잔칫날",
+                    "type": "text"
+                },
+                {
+                    "title": "돌멩이",
+                    "type": "text"
+                },
+                {
+                    "title": "테넷",
+                    "type": "text"
+                },
+                {
+                    "title": "노트북",
+                    "type": "text"
+                },
+                {
+                    "title": "안티고네",
+                    "type": "text"
+                },
+                {
+                    "title": "프리키 데스데이",
+                    "type": "text"
+                },
+                {
+                    "title": "1917",
+                    "type": "text"
+                },
+                {
+                    "title": "조제",
+                    "type": "text"
+                },
+                {
+                    "title": "원더우먼 1984",
+                    "type": "text"
+                }
+            ],
+            "tags": [
+                "영화",
+                "텍스트"
+            ],
+            "result": {
+                "cell_selection": [
+                    15,41,25,4,40,3,13,29,6,12,1,30,28,29,35,35,25,4,22,4,14,34,12,20,33,29,9,41,27,11,0,2,26,9,29,31,4,10,0,39,12,10,19,3,22,37,33,23,12
+                ],
+                "bingo_lines": {
+                    "0": 2,
+                    "1": 13,
+                    "2": 10,
+                    "3": 5,
+                    "4": 5,
+                    "5": 4,
+                    "6": 3,
+                    "7+": 0
+                }
+            }
         }
     ]
 }
