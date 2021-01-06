@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Typography, useMediaQuery } from '@material-ui/core';
 import { useTheme } from '@material-ui/core/styles';
 
-function BingoPlayCell({ index, cell }) {
+function BingoCell({ index, cell }) {
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only('xs'));
 
@@ -22,4 +22,4 @@ function BingoPlayCell({ index, cell }) {
   );
 }
 
-export default BingoPlayCell;
+export default BingoCell;

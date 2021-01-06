@@ -1,7 +1,7 @@
 import React from 'react';
 import { Grid } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
-import BingoPlayCell from './BingoPlayCell';
+import BingoCell from './BingoCell';
 
 const GridRow = styled(Grid)({
   minHeight: '100px',
@@ -13,13 +13,13 @@ const Wrapper = styled('div')({
   borderRight: '1px solid',
 });
 
-function BingoPlayBoard({ board, size }) {
+function BingoBoard({ board, size }) {
   const rows = [];
   let cells = [];
   for (const [index, cell] of board.entries()) {
     cells.push(
       <Grid key={index} item xs zeroMinWidth>
-        <BingoPlayCell index={index} cell={cell} />
+        <BingoCell index={index} cell={cell} />
       </Grid>
     );
 
@@ -36,4 +36,4 @@ function BingoPlayBoard({ board, size }) {
   return <Wrapper>{rows}</Wrapper>;
 }
 
-export default BingoPlayBoard;
+export default BingoBoard;

@@ -4,7 +4,7 @@ import { Button, Container, Typography } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import { styled } from '@material-ui/core/styles';
 import { useBingoState, useBingoDispatch, getBingo } from '../contexts/BingoContext';
-import BingoBoard from '../components/BingoPlayBoard';
+import BingoBoard from '../components/BingoBoard';
 
 const MainContainer = styled(Container)({
   display: 'flex',
