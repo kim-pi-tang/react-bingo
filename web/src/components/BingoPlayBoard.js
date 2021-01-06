@@ -14,26 +14,26 @@ const Wrapper = styled('div')({
 });
 
 function BingoPlayBoard({ board, size }) {
-  const cells = [];
-  let grid = [];
+  const rows = [];
+  let cells = [];
   for (const [index, cell] of board.entries()) {
-    grid.push(
+    cells.push(
       <Grid key={index} item xs zeroMinWidth>
         <BingoPlayCell index={index} cell={cell} />
       </Grid>
     );
 
     if ((index + 1) % size === 0) {
-      cells.push(
+      rows.push(
         <GridRow key={index} container spacing={0}>
-          {grid}
+          {cells}
         </GridRow>
       );
-      grid = [];
+      cells = [];
     }
   }
 
-  return <Wrapper>{cells}</Wrapper>;
+  return <Wrapper>{rows}</Wrapper>;
 }
 
 export default BingoPlayBoard;
