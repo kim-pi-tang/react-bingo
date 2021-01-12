@@ -19,7 +19,7 @@ function App() {
           <Route path="/" exact={true} component={LandingPage} />
           <Route path="/login" component={LoginPage} />
           <Route path="/bingo">
-            <Bingo />
+            <BingoRouter />
           </Route>
           <Route component={ErrorPage} />
         </Switch>
@@ -28,7 +28,7 @@ function App() {
   );
 }
 
-function Bingo() {
+function BingoRouter() {
   const { path } = useRouteMatch();
 
   return (
