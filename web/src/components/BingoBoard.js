@@ -6,20 +6,27 @@ import BingoCell from './BingoCell';
 const GridRow = styled(Grid)({
   minHeight: '100px',
   borderBottom: '1px solid',
+  borderColor: 'black',
 });
 
 const Wrapper = styled('div')({
   borderTop: '1px solid',
   borderRight: '1px solid',
+  borderColor: 'black',
 });
 
-function BingoBoard({ board, size }) {
+function BingoBoard({ board, size, playable, progress }) {
   const rows = [];
   let cells = [];
   for (const [index, cell] of board.entries()) {
     cells.push(
       <Grid key={index} item xs zeroMinWidth>
-        <BingoCell index={index} cell={cell} />
+        <BingoCell
+          index={index}
+          cell={cell}
+          playable={playable}
+          selected={progress.boardStatus[index]}
+        />
       </Grid>
     );
 
