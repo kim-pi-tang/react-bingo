@@ -1,9 +1,17 @@
 import React from 'react';
 import BingoCapsule from './BingoCapsule';
 import Button from '@material-ui/core/Button';
+import { Link } from 'react-router-dom';
 
+// css
+
+// component
 function BingoInfo({ bingo }) {
-  const { title, plays, thumbnail_src } = bingo;
+  const { title, plays, thumbnail_src, id } = bingo;
+
+  const adBingo = () => {
+    alert(`"${title}"의 공유하기 버튼을 누르셨습니다.`);
+  };
 
   return (
     <BingoCapsule>
@@ -14,11 +22,17 @@ function BingoInfo({ bingo }) {
           {title} - 조회수 {plays}회
         </span>
         <br />
-        <Button size="small" variant="contained" color="primary">
+        <Button
+          component={Link}
+          size="small"
+          variant="contained"
+          color="primary"
+          to={`/bingo/${id}/play`}
+        >
           시작하기
         </Button>
         &nbsp;
-        <Button size="small" variant="contained" color="secondary">
+        <Button size="small" variant="contained" color="secondary" onClick={adBingo}>
           공유하기
         </Button>
       </span>

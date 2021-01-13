@@ -21,7 +21,7 @@ function BingoCapsule({ children }) {
   //     {children}
   //   </Button>
   // );
-  return <Button onClick={() => console.log('hello')}>{children}</Button>;
+  return <Button>{children}</Button>;
 }
 
 export default withStyles(styles)(BingoCapsule);

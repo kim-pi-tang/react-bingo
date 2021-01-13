@@ -29,4 +29,6 @@ function LandingPage() {
     </>
   );
 }
+
+//etc
 export default LandingPage;
