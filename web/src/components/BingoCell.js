@@ -1,24 +1,38 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { Box, Typography, useMediaQuery } from '@material-ui/core';
+import { styled } from '@material-ui/core/styles';
+import { useBingoDispatch } from '../contexts/BingoContext';
 import { useTheme } from '@material-ui/core/styles';
 
-function BingoCell({ index, cell }) {
+const CellWrapper = styled(Box)({
+  borderLeft: '1px solid black',
+  display: 'flex',
+  textAlign: 'center',
+  justifyContent: 'center',
+  alignItems: 'center',
+  height: '100%',
+});
+
+function BingoCell({ index, cell, playable, selected }) {
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only('xs'));
 
+  const dispatch = useBingoDispatch();
+
+  const onCellClick = useCallback(() => {
+    dispatch({ type: 'UPDATE_BINGO_PROGRESS', index });
+  }, [index, dispatch]);
+
   return (
-    <Box
+    <CellWrapper
       px={1}
-      borderLeft={1}
-      height="100%"
-      display="flex"
-      textAlign="center"
-      justifyContent="center"
-      alignItems="center"
       style={{ wordBreak: xs ? 'normal' : 'keep-all' }}
+      onClick={playable ? onCellClick : null}
+      color={selected ? 'primary.contrastText' : 'black'}
+      bgcolor={selected ? 'primary.main' : 'white'}
     >
       <Typography variant="body2">{cell.title}</Typography>
-    </Box>
+    </CellWrapper>
   );
 }
 
