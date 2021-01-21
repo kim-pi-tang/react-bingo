@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Button,
   Container,
   Grid,
   IconButton,
   Paper,
+  Snackbar,
   TextField,
   Typography,
 } from '@material-ui/core';
@@ -12,6 +13,7 @@ import { useBingoState } from '../contexts/BingoContext';
 import BingoBoard from '../components/BingoBoard';
 import { Create, RotateLeft, Share } from '@material-ui/icons';
 import { useParams } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 function BingoResultPage() {
   const state = useBingoState();
@@ -19,6 +21,8 @@ function BingoResultPage() {
 
   const { loading, data, error } = state.bingo;
   const { progress } = state;
+
+  const [snack, setSnack] = useState(false);
 
   if (data) {
     // 빙고판 사이즈에 따라서 메인 컨테이너 크기 조정.
@@ -35,7 +39,10 @@ function BingoResultPage() {
 
     const onShareLink = () => {
       // 클립보드에 복사
-      console.log(`복사됨: ${shareURL}`);
+      setSnack(true);
+    };
+    const onCloseShareLink = () => {
+      setSnack(false);
     };
 
     return (
@@ -66,12 +73,20 @@ function BingoResultPage() {
           </Button>
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            label="주소 공유"
-            defaultValue={shareURL}
-            InputProps={{ readOnly: true }}
-            fullWidth
-            onClick={onShareLink}
+          <CopyToClipboard text={shareURL}>
+            <TextField
+              label="주소 공유"
+              defaultValue={shareURL}
+              InputProps={{ readOnly: true }}
+              fullWidth
+              onClick={onShareLink}
+            />
+          </CopyToClipboard>
+          <Snackbar
+            open={snack}
+            autoHideDuration={3000}
+            onClose={onCloseShareLink}
+            message="빙고 주소가 복사되었습니다."
           />
         </Grid>
         <Grid item xs={12}>
