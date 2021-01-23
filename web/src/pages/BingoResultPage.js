@@ -4,7 +4,6 @@ import {
   Container,
   Grid,
   IconButton,
-  Paper,
   Snackbar,
   TextField,
   Typography,
@@ -12,7 +11,7 @@ import {
 import { useBingoState } from '../contexts/BingoContext';
 import BingoBoard from '../components/BingoBoard';
 import { Create, RotateLeft, Share } from '@material-ui/icons';
-import { useHistory, useParams } from 'react-router-dom';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 function BingoResultPage() {
@@ -20,7 +19,7 @@ function BingoResultPage() {
   const state = useBingoState();
   const { id } = useParams();
 
-  const { loading, data, error } = state.bingo;
+  const { data } = state.bingo;
   const { progress } = state;
 
   const [snack, setSnack] = useState(false);
@@ -111,12 +110,7 @@ function BingoResultPage() {
       </Grid>
     );
   } else {
-    return (
-      <Paper>
-        {loading && <div>Loading</div>}
-        {error && <div>Error: {error.message}</div>}
-      </Paper>
-    );
+    return <Redirect to={`/bingo/${id}`} />;
   }
 }
 
