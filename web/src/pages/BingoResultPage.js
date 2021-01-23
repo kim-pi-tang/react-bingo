@@ -12,10 +12,11 @@ import {
 import { useBingoState } from '../contexts/BingoContext';
 import BingoBoard from '../components/BingoBoard';
 import { Create, RotateLeft, Share } from '@material-ui/icons';
-import { useParams } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
 function BingoResultPage() {
+  const history = useHistory();
   const state = useBingoState();
   const { id } = useParams();
 
@@ -63,6 +64,7 @@ function BingoResultPage() {
             size="large"
             startIcon={<RotateLeft />}
             fullWidth
+            onClick={() => history.push('/')}
           >
             빙고 목록으로
           </Button>
