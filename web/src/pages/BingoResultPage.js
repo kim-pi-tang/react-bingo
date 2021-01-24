@@ -4,7 +4,9 @@ import {
   Container,
   Grid,
   IconButton,
+  Paper,
   Snackbar,
+  styled,
   TextField,
   Typography,
 } from '@material-ui/core';
@@ -13,6 +15,12 @@ import BingoBoard from '../components/BingoBoard';
 import { Create, RotateLeft, Share } from '@material-ui/icons';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
+
+const CountContainer = styled(Paper)({
+  marginTop: '1rem',
+  paddingTop: '0.5rem',
+  paddingBottom: '0.5rem',
+});
 
 function BingoResultPage() {
   const history = useHistory();
@@ -54,6 +62,9 @@ function BingoResultPage() {
         <Grid item xs={12}>
           <Container maxWidth={maxWidth}>
             <BingoBoard board={data.board} size={data.size} progress={progress} />
+            <CountContainer elevation={3}>
+              <Typography>{progress.bingoCount} 빙고!</Typography>
+            </CountContainer>
           </Container>
         </Grid>
         <Grid item xs={12} sm={6}>
