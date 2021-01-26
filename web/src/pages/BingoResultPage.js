@@ -7,12 +7,11 @@ import {
   Paper,
   Snackbar,
   styled,
-  TextField,
   Typography,
 } from '@material-ui/core';
 import { useBingoState } from '../contexts/BingoContext';
 import BingoBoard from '../components/BingoBoard';
-import { Create, RotateLeft, Share } from '@material-ui/icons';
+import { Create, Link as LinkIcon, RotateLeft, Share } from '@material-ui/icons';
 import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 
@@ -86,37 +85,31 @@ function BingoResultPage() {
         </Grid>
         <Grid item xs={12}>
           <CopyToClipboard text={shareURL}>
-            <TextField
-              label="주소 공유"
-              defaultValue={shareURL}
-              InputProps={{ readOnly: true }}
-              fullWidth
-              onClick={onShareLink}
-            />
+            <IconButton onClick={onShareLink}>
+              <LinkIcon />
+            </IconButton>
           </CopyToClipboard>
+          <IconButton>
+            <Share />
+          </IconButton>
+          <IconButton>
+            <Share />
+          </IconButton>
+          <IconButton>
+            <Share />
+          </IconButton>
+          <IconButton>
+            <Share />
+          </IconButton>
+          <IconButton>
+            <Share />
+          </IconButton>
           <Snackbar
             open={isSnackOpen}
             autoHideDuration={3000}
             onClose={onCloseShareLink}
             message="빙고 주소가 복사되었습니다."
           />
-        </Grid>
-        <Grid item xs={12}>
-          <IconButton>
-            <Share />
-          </IconButton>
-          <IconButton>
-            <Share />
-          </IconButton>
-          <IconButton>
-            <Share />
-          </IconButton>
-          <IconButton>
-            <Share />
-          </IconButton>
-          <IconButton>
-            <Share />
-          </IconButton>
         </Grid>
       </Grid>
     );
