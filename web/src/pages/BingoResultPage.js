@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import {
   Button,
-  Container,
+  Collapse,
   Grid,
   IconButton,
   Paper,
@@ -32,16 +32,6 @@ function BingoResultPage() {
   const [isSnackOpen, setSnack] = useState(false);
 
   if (data) {
-    // 빙고판 사이즈에 따라서 메인 컨테이너 크기 조정.
-    let maxWidth;
-    if (data.size > 6) {
-      maxWidth = 'md';
-    } else if (data.size > 4) {
-      maxWidth = 'sm';
-    } else {
-      maxWidth = 'xs';
-    }
-
     const shareURL = `${window.location.origin}/bingo/${id}`;
 
     const onShareLink = () => {
@@ -59,13 +49,18 @@ function BingoResultPage() {
           <Typography variant="subtitle1">{data.description}</Typography>
         </Grid>
         <Grid item xs={12}>
-          <Container maxWidth={maxWidth}>
-            <BingoBoard board={data.board} size={data.size} progress={progress} />
+          <BingoBoard board={data.board} size={data.size} progress={progress} />
+        </Grid>
+        <Grid item sm={3} />
+        <Grid item xs={12} sm={6}>
+          <Collapse in={progress.bingoCount > 0}>
             <CountContainer elevation={3}>
               <Typography>{progress.bingoCount} 빙고!</Typography>
             </CountContainer>
-          </Container>
+          </Collapse>
         </Grid>
+        <Grid item sm={3} />
+        <Grid item xs={12} style={{ padding: '1rem' }} />
         <Grid item xs={12} sm={6}>
           <Button
             variant="contained"

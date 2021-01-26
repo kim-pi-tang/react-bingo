@@ -1,31 +1,15 @@
 import React, { useCallback, useEffect } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
-import { Button, Collapse, Container, Paper, Typography } from '@material-ui/core';
+import { Button, Collapse, Container, Grid, Paper, Typography } from '@material-ui/core';
 import DoneIcon from '@material-ui/icons/Done';
 import { styled } from '@material-ui/core/styles';
 import { useBingoState, useBingoDispatch, getBingo, refreshBingo } from '../contexts/BingoContext';
 import BingoBoard from '../components/BingoBoard';
 
-const MainContainer = styled(Container)({
-  display: 'flex',
-  flexDirection: 'column',
-  justifyContent: 'center',
-  textAlign: 'center',
-});
-
-const TitleContainer = styled('div')({
-  marginTop: '2rem',
-  marginBottom: '1rem',
-});
-
 const CountContainer = styled(Paper)({
   marginTop: '1rem',
   paddingTop: '0.5rem',
   paddingBottom: '0.5rem',
-});
-
-const SaveButton = styled(Button)({
-  marginTop: '1rem',
 });
 
 function BingoPlayPage() {
@@ -49,46 +33,47 @@ function BingoPlayPage() {
   }, [dispatch, id, history]);
 
   if (data) {
-    // 빙고판 사이즈에 따라서 메인 컨테이너 크기 조정.
-    let maxWidth;
-    if (data.size > 6) {
-      maxWidth = 'md';
-    } else if (data.size > 4) {
-      maxWidth = 'sm';
-    } else {
-      maxWidth = 'xs';
-    }
-
     return (
-      <MainContainer maxWidth={maxWidth}>
-        <TitleContainer>
+      <Grid container spacing={2} align="center">
+        <Grid item xs={12}>
           <Typography variant="h3">{data.title}</Typography>
           <Typography variant="subtitle1">{data.description}</Typography>
-        </TitleContainer>
-        <BingoBoard board={data.board} size={data.size} playable progress={progress} />
-        <Collapse in={progress.bingoCount > 0}>
-          <CountContainer elevation={3}>
-            <Typography>{progress.bingoCount} 빙고!</Typography>
-          </CountContainer>
-        </Collapse>
-        <SaveButton
-          variant="contained"
-          color="primary"
-          size="large"
-          startIcon={<DoneIcon />}
-          fullWidth
-          onClick={onSave}
-        >
-          결과보기
-        </SaveButton>
-      </MainContainer>
+        </Grid>
+        <Grid item xs={12}>
+          <BingoBoard board={data.board} size={data.size} playable progress={progress} />
+        </Grid>
+        <Grid item sm={3} />
+        <Grid item xs={12} sm={6}>
+          <Collapse in={progress.bingoCount > 0}>
+            <CountContainer elevation={3}>
+              <Typography>{progress.bingoCount} 빙고!</Typography>
+            </CountContainer>
+          </Collapse>
+        </Grid>
+        <Grid item sm={3} />
+        <Grid item xs={12} style={{ padding: '0.5rem' }} />
+        <Grid item sm={3} />
+        <Grid item xs={12} sm={6}>
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<DoneIcon />}
+            fullWidth
+            onClick={onSave}
+          >
+            결과보기
+          </Button>
+        </Grid>
+        <Grid item sm={3} />
+      </Grid>
     );
   } else {
     return (
-      <MainContainer maxWidth="sm">
+      <Container maxWidth="sm">
         {loading && <div>Loading</div>}
         {error && <div>Error: {error.message}</div>}
-      </MainContainer>
+      </Container>
     );
   }
 }
