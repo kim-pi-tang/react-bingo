@@ -29,17 +29,17 @@ function BingoResultPage() {
   const { data } = state.bingo;
   const { progress } = state;
 
-  const [isSnackOpen, setSnack] = useState(false);
+  const [isSnackOpen, setSnackOpen] = useState(false);
 
   if (data) {
     const shareURL = `${window.location.origin}/bingo/${id}`;
 
     const onShareLink = () => {
       // 클립보드에 복사
-      setSnack(true);
+      setSnackOpen(true);
     };
     const onCloseShareLink = () => {
-      setSnack(false);
+      setSnackOpen(false);
     };
 
     return (
