@@ -30,7 +30,7 @@ function BingoResultPage() {
   const { data } = state.bingo;
   const { progress } = state;
 
-  const [snack, setSnack] = useState(false);
+  const [isSnackOpen, setSnack] = useState(false);
 
   if (data) {
     // 빙고판 사이즈에 따라서 메인 컨테이너 크기 조정.
@@ -95,7 +95,7 @@ function BingoResultPage() {
             />
           </CopyToClipboard>
           <Snackbar
-            open={snack}
+            open={isSnackOpen}
             autoHideDuration={3000}
             onClose={onCloseShareLink}
             message="빙고 주소가 복사되었습니다."
