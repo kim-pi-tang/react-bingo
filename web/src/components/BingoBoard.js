@@ -1,5 +1,5 @@
 import React from 'react';
-import { Grid } from '@material-ui/core';
+import { Container, Grid } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import BingoCell from './BingoCell';
 
@@ -40,7 +40,21 @@ function BingoBoard({ board, size, playable, progress }) {
     }
   }
 
-  return <Wrapper>{rows}</Wrapper>;
+  // 빙고판 사이즈에 따라서 컨테이너 크기 조정.
+  let maxWidth;
+  if (size > 6) {
+    maxWidth = 'md';
+  } else if (size > 4) {
+    maxWidth = 'sm';
+  } else {
+    maxWidth = 'xs';
+  }
+
+  return (
+    <Container maxWidth={maxWidth}>
+      <Wrapper>{rows}</Wrapper>
+    </Container>
+  );
 }
 
 export default BingoBoard;

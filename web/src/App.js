@@ -6,6 +6,7 @@ import { theme } from './utils/globalTheme';
 import { BingoProvider } from './contexts/BingoContext';
 import MainNavigation from './components/MainNavigation';
 import BingoPlayPage from './pages/BingoPlayPage';
+import BingoResultPage from './pages/BingoResultPage';
 import ErrorPage from './pages/ErrorPage';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
@@ -43,9 +44,9 @@ function BingoRouter() {
         <Route path={`${path}/:id/play`}>
           <BingoPlayPage />
         </Route>
-        {/*
-          빙고 결과 페이지가 여기 들어갑니다.
-        */}
+        <Route path={`${path}/:id/result`}>
+          <BingoResultPage />
+        </Route>
         <Route component={ErrorPage} />
       </Switch>
     </BingoProvider>
