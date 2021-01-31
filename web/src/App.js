@@ -35,16 +35,16 @@ function BingoRouter() {
   return (
     <BingoProvider>
       <Switch>
-        <Route exact path={`${path}/:id`}>
-          <BingoPlayPage />
-        </Route>
         {/* 
           빙고 생성 페이지가 여기 들어가면 좋겠습니다.
         */}
-        <Route path={`${path}/:id/play`}>
+        <Route exact path={`${path}/:id(\\d+)`}>
           <BingoPlayPage />
         </Route>
-        <Route path={`${path}/:id/result`}>
+        <Route exact path={`${path}/:id(\\d+)/play`}>
+          <BingoPlayPage />
+        </Route>
+        <Route exact path={`${path}/:id(\\d+)/result`}>
           <BingoResultPage />
         </Route>
         <Route component={ErrorPage} />
