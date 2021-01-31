@@ -26,6 +26,14 @@
             "thumbnail_src": "https://scontent-ssn1-1.xx.fbcdn.net/v/t1.0-9/50996730_2014633111919327_8479180979007651840_o.png?_nc_cat=108&ccb=2&_nc_sid=730e14&_nc_ohc=-MRgbZ2whYMAX_QluyL&_nc_ht=scontent-ssn1-1.xx&oh=2c4055dcdfcbe027fada4913df1cb23d&oe=60127E6A",
             "size": 5,
             "plays": 23,
+            "lines_group_name": {
+                "0": "0줄 칭호입니다",
+                "1": "1줄 칭호입니다",
+                "2": "2줄 칭호입니다",
+                "3": "3줄 칭호입니다",
+                "4": "4줄 칭호입니다",
+                "5+": "5줄 이상 칭호입니다"
+            },
             "board": [
                 {
                     "title": "주변에 결혼한 여자친구가 생김",
@@ -154,6 +162,13 @@
             "thumbnail_src": "https://mblogthumb-phinf.pstatic.net/MjAyMDA1MjFfNjUg/MDAxNTkwMDI5MzcyNDQz.7JcNYp3Me1oSXUCD9KrM3Bt37MajG-Hg47p5DJV8rvog.VCebfNghJDbSRvFWw9htQFAsYVJ7AJKbZz9KmFSEzwcg.JPEG.sw900920/1589961172134.jpg?type=w800",
             "size": 4,
             "plays": 6,
+            "lines_group_name": {
+                "0": "0줄 칭호입니다",
+                "1": "1줄 칭호입니다",
+                "2": "2줄 칭호입니다",
+                "3": "3줄 칭호입니다",
+                "4+": "4줄 이상 칭호입니다"
+            },
             "board": [
                 {
                     "title": "6개월 이상 연애해본 적이 없다",
@@ -245,6 +260,13 @@
             "thumbnail_src": "http://www.startuptoday.co.kr//news/photo/202005/41911_22910_511.jpg",
             "size": 4,
             "plays": 108,
+            "lines_group_name": {
+                "0": "0줄 칭호입니다",
+                "1": "1줄 칭호입니다",
+                "2": "2줄 칭호입니다",
+                "3": "3줄 칭호입니다",
+                "4+": "4줄 아상 칭호입니다"
+            },
             "board": [
                 {
                     "title": "주로 일주일에 2~3회 이상 음주한다",
@@ -336,6 +358,14 @@
             "thumbnail_src": "https://ww.namu.la/s/3b3023ee1e4f7491483bb5be0b4fcc187a948eac98a7a6a0417e243799b0de5b941b348cd5cba4ccd797da851bb79575bdc3e2f4a02e5772c4b1e739b97055c83495e848e5b67b2ab127faa26e705614c2ab745306f7b04d116dc240ccddc52df2cbef8feb0d44c4d6d07b4164e37b00",
             "size": 5,
             "plays": 53,
+            "lines_group_name": {
+                "0": "0줄 칭호입니다",
+                "1": "1줄 칭호입니다",
+                "2": "2줄 칭호입니다",
+                "3": "3줄 칭호입니다",
+                "4": "4줄 칭호입니다",
+                "5+": "5줄 이상 칭호입니다"
+            },
             "board": [
                 {
                     "title": "자발적 로드 트립",
@@ -464,6 +494,16 @@
             "thumbnail_src": "http://img.vogue.co.kr/vogue/2016/03/style_56d7c79069e99.png",
             "size": 7,
             "plays": 42,
+            "lines_group_name": {
+                "0": "0줄 칭호입니다",
+                "1": "1줄 칭호입니다",
+                "2": "2줄 칭호입니다",
+                "3": "3줄 칭호입니다",
+                "4": "4줄 칭호입니다",
+                "5": "5줄 칭호입니다",
+                "6": "6줄 칭호입니다",
+                "7+": "7줄 이상 칭호입니다"
+            },
             "board": [
                 {
                     "title": "혼: 공포의 시작",
