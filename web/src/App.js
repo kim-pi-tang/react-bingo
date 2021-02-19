@@ -41,12 +41,6 @@ function BingoRouter() {
         <Route exact path={`${path}/:id(\\d+)`}>
           <BingoPlayPage />
         </Route>
-        <Route exact path={`${path}/:id(\\d+)/play`}>
-          <BingoPlayPage />
-        </Route>
-        <Route exact path={`${path}/:id(\\d+)/result`}>
-          <BingoResultPage />
-        </Route>
         <Route component={ErrorPage} />
       </Switch>
     </BingoProvider>
