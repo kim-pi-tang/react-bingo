@@ -16,6 +16,10 @@ const Wrapper = styled('div')({
 });
 
 function BingoBoard({ data, playable, progress }) {
+  if (!data) {
+    return null;
+  }
+
   const { title, description, board, size } = data;
 
   const rows = [];
