@@ -6,7 +6,6 @@ import { theme } from './utils/globalTheme';
 import { BingoProvider } from './contexts/BingoContext';
 import MainNavigation from './components/MainNavigation';
 import BingoPlayPage from './pages/BingoPlayPage';
-import BingoResultPage from './pages/BingoResultPage';
 import ErrorPage from './pages/ErrorPage';
 import LandingPage from './pages/LandingPage';
 import LoginPage from './pages/LoginPage';
