@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { useParams, useHistory } from 'react-router-dom';
 import {
+  Box,
   Button,
   CircularProgress,
   Collapse,
@@ -22,7 +23,7 @@ const CountContainer = styled(Paper)({
   paddingBottom: '0.5rem',
 });
 
-function SaveButton({ onSave }) {
+function SaveButton({ onSave, disabled }) {
   return (
     <>
       <Grid item sm={3} />
@@ -35,6 +36,7 @@ function SaveButton({ onSave }) {
           fullWidth
           style={{ marginTop: '0.5rem' }}
           onClick={onSave}
+          disabled={disabled}
         >
           결과보기
         </Button>
@@ -123,7 +125,7 @@ function BingoPlayPage() {
     setResult(true);
   }, [dispatch]);
 
-  const { loading, data, error } = state.bingo;
+  const { data, error } = state.bingo;
   const { progress } = state;
   const shareURL = `${window.location.origin}/bingo/${id}`;
 
@@ -131,13 +133,14 @@ function BingoPlayPage() {
     return <div>Error: {error.message}</div>;
   }
 
-  if (loading) {
-    return <CircularProgress />;
-  }
-
   return (
     <Grid container spacing={2} align="center">
       <Grid item xs={12}>
+        {!data && (
+          <Box top={0} bottom={0} left={0} right={0} display="flex" justifyContent="center">
+            <CircularProgress />
+          </Box>
+        )}
         {data && <BingoBoard data={data} progress={progress} playable={!isResult} />}
       </Grid>
       <Grid item sm={3} />
@@ -149,7 +152,7 @@ function BingoPlayPage() {
         </Collapse>
       </Grid>
       <Grid item sm={3} />
-      {!isResult && <SaveButton onSave={onSave} />}
+      {!isResult && <SaveButton onSave={onSave} disabled={!data} />}
       {isResult && <ResultButton shareLink={shareURL} />}
     </Grid>
   );

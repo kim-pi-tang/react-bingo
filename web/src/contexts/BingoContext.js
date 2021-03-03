@@ -4,7 +4,6 @@ import { serverBaseUrl } from '../utils/config';
 
 const initialState = {
   bingo: {
-    loading: false,
     data: null,
     error: null,
   },
@@ -16,20 +15,12 @@ const initialState = {
   },
 };
 
-const loadingState = {
-  loading: true,
-  data: null,
-  error: null,
-};
-
 const successState = (data) => ({
-  loading: false,
   data,
   error: null,
 });
 
 const errorState = (error) => ({
-  loading: false,
   data: null,
   error,
 });
@@ -39,7 +30,6 @@ function bingoReducer(state, action) {
     case 'GET_BINGO':
       return {
         ...state,
-        bingo: loadingState,
       };
     case 'GET_BINGO_SUCCESS':
       const boardSize = action.data.size;
