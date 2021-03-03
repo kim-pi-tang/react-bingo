@@ -14,7 +14,7 @@ import {
 import { styled } from '@material-ui/core/styles';
 import { Create, Done, Link, RotateLeft, Share } from '@material-ui/icons';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useBingoState, useBingoDispatch, getBingo } from '../contexts/BingoContext';
+import { useBingoContext, getBingo } from '../contexts/BingoContext';
 import BingoBoard from '../components/BingoBoard';
 
 const CountContainer = styled(Paper)({
@@ -111,8 +111,7 @@ function ResultButton({ shareLink }) {
 
 function BingoPlayPage() {
   const { id } = useParams();
-  const state = useBingoState();
-  const dispatch = useBingoDispatch();
+  const [state, dispatch] = useBingoContext();
   const [isResult, setResult] = useState(false);
 
   useEffect(() => {

@@ -151,33 +151,21 @@ function updateBingoCount(boardStatus, boardSize) {
   };
 }
 
-const BingoStateContext = createContext();
-const BingoDispatchContext = createContext();
+const BingoContext = createContext();
 
 export function BingoProvider({ children }) {
   const [state, dispatch] = useReducer(bingoReducer, initialState);
 
-  return (
-    <BingoStateContext.Provider value={state}>
-      <BingoDispatchContext.Provider value={dispatch}>{children}</BingoDispatchContext.Provider>
-    </BingoStateContext.Provider>
-  );
+  return <BingoContext.Provider value={[state, dispatch]}>{children}</BingoContext.Provider>;
 }
 
-export function useBingoState() {
-  const context = useContext(BingoStateContext);
-  if (!context) {
-    throw new Error('Cannot find BingoProvider');
-  }
-  return context;
-}
+export function useBingoContext() {
+  const [state, dispatch] = useContext(BingoContext);
 
-export function useBingoDispatch() {
-  const context = useContext(BingoDispatchContext);
-  if (!context) {
+  if (!state || !dispatch) {
     throw new Error('Cannot find BingoProvider');
   }
-  return context;
+  return [state, dispatch];
 }
 
 /**
