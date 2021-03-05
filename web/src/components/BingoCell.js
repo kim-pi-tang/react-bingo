@@ -20,7 +20,7 @@ function BingoCell({ index, cell, playable, selected }) {
   const [, dispatch] = useBingoContext();
 
   const onCellClick = useCallback(() => {
-    dispatch({ type: 'UPDATE_BINGO_PROGRESS', index });
+    dispatch({ type: 'UPDATE_PROGRESS', index });
   }, [index, dispatch]);
 
   return (

@@ -14,7 +14,7 @@ import {
 import { styled } from '@material-ui/core/styles';
 import { Create, Done, Link, RotateLeft, Share } from '@material-ui/icons';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
-import { useBingoContext, getBingo } from '../contexts/BingoContext';
+import { useBingoContext, getBoardData, submitProgress } from '../contexts/BingoContext';
 import BingoBoard from '../components/BingoBoard';
 
 const CountContainer = styled(Paper)({
@@ -115,16 +115,16 @@ function BingoPlayPage() {
   const [isResult, setResult] = useState(false);
 
   useEffect(() => {
-    getBingo(dispatch, id);
+    getBoardData(dispatch, id);
   }, [dispatch, id]);
 
   // 결과보기 버튼 클릭시 호출할 함수.
   const onSave = useCallback(async () => {
-    dispatch({ type: 'SUBMIT_BINGO_RESULT' });
+    submitProgress(dispatch, id);
     setResult(true);
-  }, [dispatch]);
+  }, [dispatch, id]);
 
-  const { data, error } = state.bingo;
+  const { data, error } = state.board;
   const { progress } = state;
   const shareURL = `${window.location.origin}/bingo/${id}`;
 
@@ -144,9 +144,9 @@ function BingoPlayPage() {
       </Grid>
       <Grid item sm={3} />
       <Grid item xs={12} sm={6}>
-        <Collapse in={progress.bingoCount > 0}>
+        <Collapse in={progress.totalCount > 0}>
           <CountContainer elevation={3}>
-            <Typography>{progress.bingoCount} 빙고!</Typography>
+            <Typography>{progress.totalCount} 빙고!</Typography>
           </CountContainer>
         </Collapse>
       </Grid>

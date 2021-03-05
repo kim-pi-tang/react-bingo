@@ -31,7 +31,7 @@ function BingoBoard({ data, playable, progress }) {
           index={index}
           cell={cell}
           playable={playable}
-          selected={progress.boardStatus[index]}
+          selected={progress.isCellSelected[index]}
         />
       </Grid>
     );

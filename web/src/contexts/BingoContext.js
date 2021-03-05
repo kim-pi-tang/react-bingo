@@ -3,151 +3,136 @@ import axios from 'axios';
 import { serverBaseUrl } from '../utils/config';
 
 const initialState = {
-  bingo: {
+  board: {
     data: null,
     error: null,
   },
   progress: {
-    boardStatus: null,
-    bingoCount: null,
-    bingoLines: null,
     boardSize: null,
+    isCellSelected: null,
+    totalCount: null,
+    lineCounts: null,
   },
 };
 
-const successState = (data) => ({
+const successBoardState = (data) => ({
   data,
   error: null,
 });
 
-const errorState = (error) => ({
+const errorBoardState = (error) => ({
   data: null,
   error,
 });
 
 function bingoReducer(state, action) {
   switch (action.type) {
-    case 'GET_BINGO':
-      return {
-        ...state,
-      };
-    case 'GET_BINGO_SUCCESS':
+    case 'SET_DATA':
       const boardSize = action.data.size;
-      const statusArray = new Array(boardSize * boardSize).fill(false);
+      const initializedCellList = new Array(boardSize * boardSize).fill(false);
 
       return {
         ...state,
-        bingo: successState(action.data),
+        board: successBoardState(action.data),
         progress: {
           ...state.progress,
           boardSize,
-          boardStatus: statusArray,
-          bingoCount: 0,
+          isCellSelected: initializedCellList,
+          totalCount: 0,
         },
       };
-    case 'GET_BINGO_REFRESH_SUCCESS':
+    case 'SET_ERROR':
       return {
         ...state,
-        bingo: successState(action.data),
+        board: errorBoardState(action.error),
       };
-    case 'GET_BINGO_ERROR':
-      return {
-        ...state,
-        bingo: errorState(action.error),
-      };
-    case 'UPDATE_BINGO_PROGRESS':
-      const boardStatus = updateBoardStatus(state.progress, action.index);
-      const { totalCount, bingoLines } = updateBingoCount(boardStatus, state.progress.boardSize);
+    case 'UPDATE_PROGRESS':
+      const updatedCellList = updateCellState(state.progress, action.index);
+      const { totalCount, lineCounts } = getBingoCount(updatedCellList, state.progress.boardSize);
       return {
         ...state,
         progress: {
           ...state.progress,
-          boardStatus,
-          bingoCount: totalCount,
-          bingoLines,
+          isCellSelected: updatedCellList,
+          totalCount,
+          lineCounts,
         },
-      };
-    case 'SUBMIT_BINGO_RESULT':
-      // TODO(mskwon1): 서버쪽으로 데이터 보내고 결과 받는 부분 구현.
-      console.log('result submitted');
-      return {
-        ...state,
       };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 }
 
-function updateBoardStatus(progress, updateIndex) {
-  const boardStatus = progress.boardStatus.map((value, index) => {
+function updateCellState(progress, updateIndex) {
+  const isCellSelected = progress.isCellSelected.map((value, index) => {
     if (index === updateIndex) {
       return !value;
     }
     return value;
   });
 
-  return boardStatus;
+  return isCellSelected;
 }
 
-function updateBingoCount(boardStatus, boardSize) {
-  const bingoLines = { h: [], v: [], d: [] };
+function getBingoCount(cellList, boardSize) {
+  const lineCounts = { h: [], v: [], d: [] };
   let totalCount = 0;
 
   // 가로줄 검사.
-  for (let i = 0; i < boardStatus.length; i += boardSize) {
+  for (let i = 0; i < cellList.length; i += boardSize) {
     let rowCount = 0;
     for (let j = 0; j < boardSize; j++) {
-      if (boardStatus[i + j]) {
+      if (cellList[i + j]) {
         rowCount++;
       }
     }
     if (rowCount === boardSize) {
       totalCount++;
-      bingoLines['h'].push(i / boardSize + 1);
+      lineCounts['h'].push(i / boardSize + 1);
     }
   }
 
   // 세로줄 검사.
   for (let i = 0; i < boardSize; i++) {
     let colCount = 0;
-    for (let j = 0; j < boardStatus.length; j += boardSize) {
-      if (boardStatus[i + j]) {
+    for (let j = 0; j < cellList.length; j += boardSize) {
+      if (cellList[i + j]) {
         colCount++;
       }
     }
     if (colCount === boardSize) {
       totalCount++;
-      bingoLines['v'].push(i + 1);
+      lineCounts['v'].push(i + 1);
     }
   }
 
   // 우하향 대각선 검사.
   let diagDownCount = 0;
-  for (let i = 0; i < boardStatus.length; i += boardSize + 1) {
-    if (boardStatus[i]) {
+  for (let i = 0; i < cellList.length; i += boardSize + 1) {
+    if (cellList[i]) {
       diagDownCount++;
     }
   }
   if (diagDownCount === boardSize) {
     totalCount++;
-    bingoLines['d'].push(1);
+    lineCounts['d'].push(1);
   }
 
   let diagUpCount = 0;
   // 우상향 대각선 검사.
-  for (let i = boardSize - 1; i < boardStatus.length - boardSize + 1; i += boardSize - 1) {
-    if (boardStatus[i]) {
+  for (let i = boardSize - 1; i < cellList.length - boardSize + 1; i += boardSize - 1) {
+    if (cellList[i]) {
       diagUpCount++;
     }
   }
   if (diagUpCount === boardSize) {
     totalCount++;
-    bingoLines['d'].push(2);
+    lineCounts['d'].push(2);
   }
 
   return {
-    bingoLines,
     totalCount,
+    lineCounts,
   };
 }
 
@@ -173,27 +158,16 @@ export function useBingoContext() {
  * @param {Function} dispatch 컨텍스트 디스패쳐
  * @param {Number} id 받아올 빙고 id
  */
-export async function getBingo(dispatch, id) {
-  dispatch({ type: 'GET_BINGO' });
+export async function getBoardData(dispatch, id) {
   try {
     const response = await axios.get(`${serverBaseUrl}/bingos/${id}`);
-    dispatch({ type: 'GET_BINGO_SUCCESS', data: response.data });
+    dispatch({ type: 'SET_DATA', data: response.data });
   } catch (error) {
-    dispatch({ type: 'GET_BINGO_ERROR', error });
+    dispatch({ type: 'SET_ERROR', error });
   }
 }
 
-/**
- * progress 안건드리고 bingo 데이터 다시 받아올 때 사용하세요.
- * @param {Function} dispatch 컨텍스트 디스패쳐
- * @param {Number} id 빙고 id
- */
-export async function refreshBingo(dispatch, id) {
-  dispatch({ type: 'GET_BINGO' });
-  try {
-    const response = await axios.get(`${serverBaseUrl}/bingos/${id}`);
-    dispatch({ type: 'GET_BINGO_REFRESH_SUCCESS', data: response.data });
-  } catch (error) {
-    dispatch({ type: 'GET_BINGO_ERROR', error });
-  }
+export async function submitProgress(dispatch, id) {
+  // TODO(mskwon1): 서버쪽으로 데이터 보내고 결과 받는 부분 구현.
+  console.log('result submitted');
 }
