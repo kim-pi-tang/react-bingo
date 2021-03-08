@@ -23,23 +23,25 @@ const CountContainer = styled(Paper)({
   paddingBottom: '0.5rem',
 });
 
-function SaveButton({ onSave, disabled }) {
+function SaveButton({ onSave, loading }) {
   return (
     <>
       <Grid item sm={3} />
       <Grid item xs={12} sm={6}>
-        <Button
-          variant="contained"
-          color="primary"
-          size="large"
-          startIcon={<Done />}
-          fullWidth
-          style={{ marginTop: '0.5rem' }}
-          onClick={onSave}
-          disabled={disabled}
-        >
-          결과보기
-        </Button>
+        {loading && <CircularProgress />}
+        {!loading && (
+          <Button
+            variant="contained"
+            color="primary"
+            size="large"
+            startIcon={<Done />}
+            fullWidth
+            style={{ marginTop: '0.5rem' }}
+            onClick={onSave}
+          >
+            결과보기
+          </Button>
+        )}
       </Grid>
       <Grid item sm={3} />
     </>
@@ -155,7 +157,7 @@ function BingoPlayPage() {
         </Collapse>
       </Grid>
       <Grid item sm={3} />
-      {!isResult && <SaveButton onSave={onSave} disabled={loading} />}
+      {!isResult && <SaveButton onSave={onSave} loading={loading} />}
       {isResult && <ResultButton shareLink={shareURL} />}
     </Grid>
   );
