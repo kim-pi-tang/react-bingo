@@ -124,8 +124,9 @@ function BingoPlayPage() {
     setResult(true);
   }, [dispatch, id]);
 
-  const { data, error } = state.board;
-  const { progress } = state;
+  const { bingo, progress } = state;
+  const { data, error } = bingo;
+  const { totalCount } = progress;
   const shareURL = `${window.location.origin}/bingo/${id}`;
 
   if (error) {
@@ -144,9 +145,9 @@ function BingoPlayPage() {
       </Grid>
       <Grid item sm={3} />
       <Grid item xs={12} sm={6}>
-        <Collapse in={progress.totalCount > 0}>
+        <Collapse in={totalCount > 0}>
           <CountContainer elevation={3}>
-            <Typography>{progress.totalCount} 빙고!</Typography>
+            <Typography>{totalCount} 빙고!</Typography>
           </CountContainer>
         </Collapse>
       </Grid>

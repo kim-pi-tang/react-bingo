@@ -3,7 +3,7 @@ import axios from 'axios';
 import { serverBaseUrl } from '../utils/config';
 
 const initialState = {
-  board: {
+  bingo: {
     data: null,
     error: null,
   },
@@ -33,7 +33,7 @@ function bingoReducer(state, action) {
 
       return {
         ...state,
-        board: successBoardState(action.data),
+        bingo: successBoardState(action.data),
         progress: {
           ...state.progress,
           boardSize,
@@ -44,7 +44,7 @@ function bingoReducer(state, action) {
     case 'SET_ERROR':
       return {
         ...state,
-        board: errorBoardState(action.error),
+        bingo: errorBoardState(action.error),
       };
     case 'UPDATE_PROGRESS':
       const updatedCellList = updateCellState(state.progress, action.index);
