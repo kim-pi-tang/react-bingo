@@ -120,7 +120,7 @@ function BingoPlayPage() {
 
   // 결과보기 버튼 클릭시 호출할 함수.
   const onSave = useCallback(async () => {
-    submitProgress(dispatch, id);
+    await submitProgress(dispatch, id);
     setResult(true);
   }, [dispatch, id]);
 
