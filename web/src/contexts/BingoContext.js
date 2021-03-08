@@ -3,10 +3,11 @@ import axios from 'axios';
 import { serverBaseUrl } from '../utils/config';
 
 const initialState = {
-  bingo: {
-    data: null,
+  connection: {
+    loading: true,
     error: null,
   },
+  bingo: null,
   progress: {
     boardSize: null,
     isCellSelected: null,
@@ -15,25 +16,35 @@ const initialState = {
   },
 };
 
-const successBoardState = (data) => ({
-  data,
-  error: null,
-});
-
-const errorBoardState = (error) => ({
-  data: null,
-  error,
-});
-
 function bingoReducer(state, action) {
   switch (action.type) {
-    case 'SET_DATA':
+    case 'SET_LOADING':
+      return {
+        ...state,
+        connection: {
+          loading: true,
+          error: null,
+        },
+      };
+    case 'SET_ERROR':
+      return {
+        ...state,
+        connection: {
+          loading: false,
+          error: action.error,
+        },
+      };
+    case 'SET_BINGO_DATA':
       const boardSize = action.data.size;
       const initializedCellList = new Array(boardSize * boardSize).fill(false);
 
       return {
         ...state,
-        bingo: successBoardState(action.data),
+        connection: {
+          loading: false,
+          error: null,
+        },
+        bingo: action.data,
         progress: {
           ...state.progress,
           boardSize,
@@ -41,10 +52,14 @@ function bingoReducer(state, action) {
           totalCount: 0,
         },
       };
-    case 'SET_ERROR':
+    case 'UPDATE_BINGO_DATA':
       return {
         ...state,
-        bingo: errorBoardState(action.error),
+        connection: {
+          loading: false,
+          error: null,
+        },
+        bingo: action.data,
       };
     case 'UPDATE_PROGRESS':
       const updatedCellList = updateCellState(state.progress, action.index);
@@ -154,20 +169,24 @@ export function useBingoContext() {
 }
 
 /**
- * 빙고 데이터 받아올 때 사용(progress 초기화됨).
+ * 빙고 데이터 받아올 때 사용
  * @param {Function} dispatch 컨텍스트 디스패쳐
  * @param {Number} id 받아올 빙고 id
+ * @param {Boolean} [isFirst] 데이터를 처음 받는지 여부(progress 초기화 여부)
  */
-export async function getBoardData(dispatch, id) {
+export async function getBoardData(dispatch, id, isFirst) {
+  dispatch({ type: 'SET_LOADING' });
   try {
     const response = await axios.get(`${serverBaseUrl}/bingos/${id}`);
-    dispatch({ type: 'SET_DATA', data: response.data });
+    const actionType = isFirst ? 'SET_BINGO_DATA' : 'UPDATE_BINGO_DATA';
+
+    dispatch({ type: actionType, data: response.data });
   } catch (error) {
     dispatch({ type: 'SET_ERROR', error });
   }
 }
 
 export async function submitProgress(dispatch, id) {
-  // TODO(mskwon1): 서버쪽으로 데이터 보내고 결과 받는 부분 구현.
+  // TODO(mskwon1): 서버쪽으로 데이터 보내고 결과 받는 부분 구현
   console.log('result submitted');
 }

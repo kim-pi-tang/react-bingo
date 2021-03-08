@@ -115,33 +115,36 @@ function BingoPlayPage() {
   const [isResult, setResult] = useState(false);
 
   useEffect(() => {
-    getBoardData(dispatch, id);
+    getBoardData(dispatch, id, true);
   }, [dispatch, id]);
+
+  const { connection, bingo, progress } = state;
+  const { loading, error } = connection;
+  const { totalCount } = progress;
+  const shareURL = `${window.location.origin}/bingo/${id}`;
 
   // 결과보기 버튼 클릭시 호출할 함수.
   const onSave = useCallback(async () => {
-    await submitProgress(dispatch, id);
+    await submitProgress(progress, dispatch, id);
     setResult(true);
-  }, [dispatch, id]);
-
-  const { bingo, progress } = state;
-  const { data, error } = bingo;
-  const { totalCount } = progress;
-  const shareURL = `${window.location.origin}/bingo/${id}`;
+  }, [progress, dispatch, id]);
 
   if (error) {
     return <div>Error: {error.message}</div>;
   }
 
+  if (loading && !bingo) {
+    return (
+      <Box top={0} bottom={0} left={0} right={0} display="flex" justifyContent="center">
+        <CircularProgress />
+      </Box>
+    );
+  }
+
   return (
     <Grid container spacing={2} align="center">
       <Grid item xs={12}>
-        {!data && (
-          <Box top={0} bottom={0} left={0} right={0} display="flex" justifyContent="center">
-            <CircularProgress />
-          </Box>
-        )}
-        {data && <BingoBoard data={data} progress={progress} playable={!isResult} />}
+        <BingoBoard data={bingo} progress={progress} playable={!isResult} />
       </Grid>
       <Grid item sm={3} />
       <Grid item xs={12} sm={6}>
@@ -152,7 +155,7 @@ function BingoPlayPage() {
         </Collapse>
       </Grid>
       <Grid item sm={3} />
-      {!isResult && <SaveButton onSave={onSave} disabled={!data} />}
+      {!isResult && <SaveButton onSave={onSave} disabled={loading} />}
       {isResult && <ResultButton shareLink={shareURL} />}
     </Grid>
   );
