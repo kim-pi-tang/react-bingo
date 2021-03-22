@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import { Box, Typography, useMediaQuery } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
-import { useBingoDispatch } from '../contexts/BingoContext';
+import { useBingoContext } from '../contexts/BingoContext';
 import { useTheme } from '@material-ui/core/styles';
 
 const CellWrapper = styled(Box)({
@@ -17,10 +17,10 @@ function BingoCell({ index, cell, playable, selected }) {
   const theme = useTheme();
   const xs = useMediaQuery(theme.breakpoints.only('xs'));
 
-  const dispatch = useBingoDispatch();
+  const [, dispatch] = useBingoContext();
 
   const onCellClick = useCallback(() => {
-    dispatch({ type: 'UPDATE_BINGO_PROGRESS', index });
+    dispatch({ type: 'UPDATE_PROGRESS', index });
   }, [index, dispatch]);
 
   return (

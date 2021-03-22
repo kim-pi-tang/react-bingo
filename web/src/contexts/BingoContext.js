@@ -3,219 +3,209 @@ import axios from 'axios';
 import { serverBaseUrl } from '../utils/config';
 
 const initialState = {
-  bingo: {
-    loading: false,
-    data: null,
+  connection: {
+    loading: true,
     error: null,
   },
+  bingo: null,
   progress: {
-    boardStatus: null,
-    bingoCount: null,
-    bingoLines: null,
     boardSize: null,
+    isCellSelected: null,
+    totalCount: null,
+    lineCounts: null,
   },
 };
-
-const loadingState = {
-  loading: true,
-  data: null,
-  error: null,
-};
-
-const successState = (data) => ({
-  loading: false,
-  data,
-  error: null,
-});
-
-const errorState = (error) => ({
-  loading: false,
-  data: null,
-  error,
-});
 
 function bingoReducer(state, action) {
   switch (action.type) {
-    case 'GET_BINGO':
+    case 'SET_LOADING':
       return {
         ...state,
-        bingo: loadingState,
+        connection: {
+          loading: true,
+          error: null,
+        },
       };
-    case 'GET_BINGO_SUCCESS':
+    case 'SET_ERROR':
+      return {
+        ...state,
+        connection: {
+          loading: false,
+          error: action.error,
+        },
+      };
+    case 'SET_BINGO_DATA':
       const boardSize = action.data.size;
-      const statusArray = new Array(boardSize * boardSize).fill(false);
+      const initializedCellList = new Array(boardSize * boardSize).fill(false);
 
       return {
         ...state,
-        bingo: successState(action.data),
+        connection: {
+          loading: false,
+          error: null,
+        },
+        bingo: action.data,
         progress: {
           ...state.progress,
           boardSize,
-          boardStatus: statusArray,
-          bingoCount: 0,
+          isCellSelected: initializedCellList,
+          totalCount: 0,
         },
       };
-    case 'GET_BINGO_REFRESH_SUCCESS':
+    case 'UPDATE_BINGO_DATA':
       return {
         ...state,
-        bingo: successState(action.data),
+        connection: {
+          loading: false,
+          error: null,
+        },
+        bingo: action.data,
       };
-    case 'GET_BINGO_ERROR':
-      return {
-        ...state,
-        bingo: errorState(action.error),
-      };
-    case 'UPDATE_BINGO_PROGRESS':
-      const boardStatus = updateBoardStatus(state.progress, action.index);
-      const { totalCount, bingoLines } = updateBingoCount(boardStatus, state.progress.boardSize);
+    case 'UPDATE_PROGRESS':
+      const updatedCellList = updateCellState(state.progress, action.index);
+      const { totalCount, lineCounts } = getBingoCount(updatedCellList, state.progress.boardSize);
       return {
         ...state,
         progress: {
           ...state.progress,
-          boardStatus,
-          bingoCount: totalCount,
-          bingoLines,
+          isCellSelected: updatedCellList,
+          totalCount,
+          lineCounts,
         },
-      };
-    case 'SUBMIT_BINGO_RESULT':
-      // TODO(mskwon1): 서버쪽으로 데이터 보내고 결과 받는 부분 구현.
-      console.log('result submitted');
-      return {
-        ...state,
       };
     default:
       throw new Error(`Unhandled action type: ${action.type}`);
   }
 }
 
-function updateBoardStatus(progress, updateIndex) {
-  const boardStatus = progress.boardStatus.map((value, index) => {
+function updateCellState(progress, updateIndex) {
+  const isCellSelected = progress.isCellSelected.map((value, index) => {
     if (index === updateIndex) {
       return !value;
     }
     return value;
   });
 
-  return boardStatus;
+  return isCellSelected;
 }
 
-function updateBingoCount(boardStatus, boardSize) {
-  const bingoLines = { h: [], v: [], d: [] };
+function getBingoCount(cellList, boardSize) {
+  const lineCounts = { h: [], v: [], d: [] };
   let totalCount = 0;
 
   // 가로줄 검사.
-  for (let i = 0; i < boardStatus.length; i += boardSize) {
+  for (let i = 0; i < cellList.length; i += boardSize) {
     let rowCount = 0;
     for (let j = 0; j < boardSize; j++) {
-      if (boardStatus[i + j]) {
+      if (cellList[i + j]) {
         rowCount++;
       }
     }
     if (rowCount === boardSize) {
       totalCount++;
-      bingoLines['h'].push(i / boardSize + 1);
+      lineCounts['h'].push(i / boardSize + 1);
     }
   }
 
   // 세로줄 검사.
   for (let i = 0; i < boardSize; i++) {
     let colCount = 0;
-    for (let j = 0; j < boardStatus.length; j += boardSize) {
-      if (boardStatus[i + j]) {
+    for (let j = 0; j < cellList.length; j += boardSize) {
+      if (cellList[i + j]) {
         colCount++;
       }
     }
     if (colCount === boardSize) {
       totalCount++;
-      bingoLines['v'].push(i + 1);
+      lineCounts['v'].push(i + 1);
     }
   }
 
   // 우하향 대각선 검사.
   let diagDownCount = 0;
-  for (let i = 0; i < boardStatus.length; i += boardSize + 1) {
-    if (boardStatus[i]) {
+  for (let i = 0; i < cellList.length; i += boardSize + 1) {
+    if (cellList[i]) {
       diagDownCount++;
     }
   }
   if (diagDownCount === boardSize) {
     totalCount++;
-    bingoLines['d'].push(1);
+    lineCounts['d'].push(1);
   }
 
   let diagUpCount = 0;
   // 우상향 대각선 검사.
-  for (let i = boardSize - 1; i < boardStatus.length - boardSize + 1; i += boardSize - 1) {
-    if (boardStatus[i]) {
+  for (let i = boardSize - 1; i < cellList.length - boardSize + 1; i += boardSize - 1) {
+    if (cellList[i]) {
       diagUpCount++;
     }
   }
   if (diagUpCount === boardSize) {
     totalCount++;
-    bingoLines['d'].push(2);
+    lineCounts['d'].push(2);
   }
 
   return {
-    bingoLines,
     totalCount,
+    lineCounts,
   };
 }
 
-const BingoStateContext = createContext();
-const BingoDispatchContext = createContext();
+const BingoContext = createContext();
 
 export function BingoProvider({ children }) {
   const [state, dispatch] = useReducer(bingoReducer, initialState);
 
-  return (
-    <BingoStateContext.Provider value={state}>
-      <BingoDispatchContext.Provider value={dispatch}>{children}</BingoDispatchContext.Provider>
-    </BingoStateContext.Provider>
-  );
+  return <BingoContext.Provider value={[state, dispatch]}>{children}</BingoContext.Provider>;
 }
 
-export function useBingoState() {
-  const context = useContext(BingoStateContext);
-  if (!context) {
-    throw new Error('Cannot find BingoProvider');
-  }
-  return context;
-}
+export function useBingoContext() {
+  const [state, dispatch] = useContext(BingoContext);
 
-export function useBingoDispatch() {
-  const context = useContext(BingoDispatchContext);
-  if (!context) {
+  if (!state || !dispatch) {
     throw new Error('Cannot find BingoProvider');
   }
-  return context;
+  return [state, dispatch];
 }
 
 /**
- * 빙고 데이터 받아올 때 사용(progress 초기화됨).
+ * 빙고 데이터 받아올 때 사용
  * @param {Function} dispatch 컨텍스트 디스패쳐
  * @param {Number} id 받아올 빙고 id
+ * @param {Boolean} [isFirst] 데이터를 처음 받는지 여부(progress 초기화 여부)
  */
-export async function getBingo(dispatch, id) {
-  dispatch({ type: 'GET_BINGO' });
+export async function getBoardData(dispatch, id, isFirst) {
+  dispatch({ type: 'SET_LOADING' });
   try {
     const response = await axios.get(`${serverBaseUrl}/bingos/${id}`);
-    dispatch({ type: 'GET_BINGO_SUCCESS', data: response.data });
+    const actionType = isFirst ? 'SET_BINGO_DATA' : 'UPDATE_BINGO_DATA';
+
+    dispatch({ type: actionType, data: response.data });
   } catch (error) {
-    dispatch({ type: 'GET_BINGO_ERROR', error });
+    dispatch({ type: 'SET_ERROR', error });
   }
 }
 
-/**
- * progress 안건드리고 bingo 데이터 다시 받아올 때 사용하세요.
- * @param {Function} dispatch 컨텍스트 디스패쳐
- * @param {Number} id 빙고 id
- */
-export async function refreshBingo(dispatch, id) {
-  dispatch({ type: 'GET_BINGO' });
+export async function submitProgress(progress, dispatch, id) {
+  dispatch({ type: 'SET_LOADING' });
   try {
-    const response = await axios.get(`${serverBaseUrl}/bingos/${id}`);
-    dispatch({ type: 'GET_BINGO_REFRESH_SUCCESS', data: response.data });
+    /*
+    response에 새 통계 데이터를 담을 지, 기존 getBoardData를 재활용할지 결정할 필요 있음
+    
+    제안 1. 완료 후 별도로 getBoardData() 호출로 최신화
+    const response = await axios.post(`${serverBaseUrl}/bingos/${id}/submit`, progress);
+    // response.data = { status: 'OK' } or { status: 'ERROR', error: { ... } }
+    if(reponse.data.status !== 'OK') throw response.data.error;
+    dispatch({ type: 'SET_COMPLETE' }); // Reducer에 해당 action.type 정의 필요
+    
+    제안 2. 기존의 UPDATE_BINGO_DATA로 즉시 처리
+    const response = await axios.post(`${serverBaseUrl}/bingos/${id}/submit`, progress);
+    // repsonse.data = { status: 'OK', bingo: { ... } } or { status: 'ERROR', error: { ... } }
+    if(reponse.data.status !== 'OK') throw response.data.error;
+    dispatch({ type: 'UPDATE_BINGO_DATA', response.data.bingo });
+    */
+    console.log('result submitted');
   } catch (error) {
-    dispatch({ type: 'GET_BINGO_ERROR', error });
+    dispatch({ type: 'SET_ERROR', error });
   }
 }

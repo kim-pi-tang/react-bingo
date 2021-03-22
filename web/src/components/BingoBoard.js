@@ -1,5 +1,5 @@
 import React from 'react';
-import { Container, Grid } from '@material-ui/core';
+import { Container, Grid, Typography } from '@material-ui/core';
 import { styled } from '@material-ui/core/styles';
 import BingoCell from './BingoCell';
 
@@ -15,7 +15,13 @@ const Wrapper = styled('div')({
   borderColor: 'black',
 });
 
-function BingoBoard({ board, size, playable, progress }) {
+function BingoBoard({ data, playable, progress }) {
+  if (!data) {
+    return null;
+  }
+
+  const { title, description, board, size } = data;
+
   const rows = [];
   let cells = [];
   for (const [index, cell] of board.entries()) {
@@ -25,7 +31,7 @@ function BingoBoard({ board, size, playable, progress }) {
           index={index}
           cell={cell}
           playable={playable}
-          selected={progress.boardStatus[index]}
+          selected={progress.isCellSelected[index]}
         />
       </Grid>
     );
@@ -52,6 +58,10 @@ function BingoBoard({ board, size, playable, progress }) {
 
   return (
     <Container maxWidth={maxWidth}>
+      <Typography variant="h3">{title}</Typography>
+      <Typography variant="subtitle1" gutterBottom>
+        {description}
+      </Typography>
       <Wrapper>{rows}</Wrapper>
     </Container>
   );
