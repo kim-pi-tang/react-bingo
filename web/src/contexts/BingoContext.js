@@ -186,7 +186,26 @@ export async function getBoardData(dispatch, id, isFirst) {
   }
 }
 
-export async function submitProgress(dispatch, id) {
-  // TODO(mskwon1): 서버쪽으로 데이터 보내고 결과 받는 부분 구현
-  console.log('result submitted');
+export async function submitProgress(progress, dispatch, id) {
+  dispatch({ type: 'SET_LOADING' });
+  try {
+    /*
+    response에 새 통계 데이터를 담을 지, 기존 getBoardData를 재활용할지 결정할 필요 있음
+    
+    제안 1. 완료 후 별도로 getBoardData() 호출로 최신화
+    const response = await axios.post(`${serverBaseUrl}/bingos/${id}/submit`, progress);
+    // response.data = { status: 'OK' } or { status: 'ERROR', error: { ... } }
+    if(reponse.data.status !== 'OK') throw response.data.error;
+    dispatch({ type: 'SET_COMPLETE' }); // Reducer에 해당 action.type 정의 필요
+    
+    제안 2. 기존의 UPDATE_BINGO_DATA로 즉시 처리
+    const response = await axios.post(`${serverBaseUrl}/bingos/${id}/submit`, progress);
+    // repsonse.data = { status: 'OK', bingo: { ... } } or { status: 'ERROR', error: { ... } }
+    if(reponse.data.status !== 'OK') throw response.data.error;
+    dispatch({ type: 'UPDATE_BINGO_DATA', response.data.bingo });
+    */
+    console.log('result submitted');
+  } catch (error) {
+    dispatch({ type: 'SET_ERROR', error });
+  }
 }
